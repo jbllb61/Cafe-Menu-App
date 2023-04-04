@@ -10,7 +10,7 @@ while True:
             exit()
         break  # if age is valid, exit the loop
     except ValueError:
-        print("Invalid input. Please enter a valid age.")
+        print("Invalid input. Please enter a valid number.")
 
 print(f"Hello, {name}! Please log in or create an account to use the app.")
 
