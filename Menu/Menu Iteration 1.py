@@ -15,7 +15,11 @@ while True:
     if choice not in ITEMS:
         print('Sorry, that item is not available.')
         continue
-    quantity = int(input('Enter the quantity you want to order: '))
+    quantity_str = input('Enter the quantity you want to order: ')
+    if not quantity_str.isdigit():
+        print('Sorry, the quantity should be a valid number. Please try again.')
+        continue
+    quantity = int(quantity_str)
     if quantity <= 0:
         print('Sorry, the quantity must be above 0. Please try again.')
         continue
