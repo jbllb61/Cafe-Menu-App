@@ -12,6 +12,9 @@ while True:
     choice = input('Enter an item to order (or "done" to finish): ').lower()
     if choice == 'done':
         break
+    if choice not in ITEMS:
+        print('Sorry, that item is not available.')
+        continue
     quantity = int(input('Enter the quantity you want to order: '))
     order[choice] = quantity
 
