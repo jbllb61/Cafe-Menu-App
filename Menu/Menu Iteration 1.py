@@ -16,6 +16,9 @@ while True:
         print('Sorry, that item is not available.')
         continue
     quantity = int(input('Enter the quantity you want to order: '))
+    if quantity <= 0:
+        print('Sorry, the quantity must be above 0. Please try again.')
+        continue
     order[choice] = quantity
 
 # Display the order summary
