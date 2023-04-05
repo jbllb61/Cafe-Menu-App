@@ -1,0 +1,26 @@
+ITEMS = {'sandwich': 2.50, 'pizza': 3.00, 'salad': 2.00, 'fruit cup': 1.50}
+
+# Display the menu
+print('MENU')
+for item, price in ITEMS.items():
+    print(f'{item.title()} - ${price:.2f}')
+
+# Take the order
+print('\nPLACE AN ORDER')
+order = {}
+while True:
+    choice = input('Enter an item to order (or "done" to finish): ').lower()
+    if choice == 'done':
+        break
+    quantity = int(input('Enter the quantity you want to order: '))
+    order[choice] = quantity
+
+# Display the order summary
+print('\nORDER SUMMARY')
+total = 0
+for item, quantity in order.items():
+    price = ITEMS[item]
+    subtotal = price * quantity
+    print(f'{item.title()} x{quantity} - ${subtotal:.2f}')
+    total += subtotal
+print(f'TOTAL: ${total:.2f}')
