@@ -13,7 +13,3 @@ while True:
         print("Invalid input. Please enter a valid number. eg 13 or 15")
 
 print(f"Hello, {name}! Please log in or create an account to use the app.")
-
-# TODO: Implement login and account creation functionality
-# TODO: Implement index data list for username and password verification
-# TODO: Add age verification for new users 
