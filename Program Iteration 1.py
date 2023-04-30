@@ -37,7 +37,6 @@ while True:
     elif option == '2':
         new_username = input("Enter your desired username: ")
         new_password = input("Enter your desired password: ")
-        # TODO: Add age verification for new users
         username_list.append(new_username)
         password_list.append(new_password)
         print("Sign up successful! Please log in with your new credentials.")
