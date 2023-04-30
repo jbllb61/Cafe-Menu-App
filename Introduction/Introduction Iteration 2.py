@@ -2,7 +2,7 @@ print("Welcome to the school cafe app!")
 
 while True:
     try:
-        age = int(input("Please enter your age: "))
+        age = int(input("Please enter your age (This programme is for students aged 13-18): "))
         if age < 13 or age > 18:
             print("Sorry, this app is only available for students aged 13-18.")
             exit()
