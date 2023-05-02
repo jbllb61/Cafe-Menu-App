@@ -1,9 +1,9 @@
-username_list = []
-password_list = []
+import os
 
-# Add a test user
-username_list.append("testuser")
-password_list.append("Testing123")
+# create user_details.txt if it doesn't exist
+if not os.path.exists("user_details.txt"):
+    with open("user_details.txt", "w") as f:
+        pass
 
 # login and signup options
 while True:
@@ -11,17 +11,20 @@ while True:
     if option == '1':
         username = input("Enter your username: ")
         password = input("Enter your password: ")
-        if username in username_list and password == password_list[username_list.index(username)]:
-            print(f"Welcome back {username}! What would you like to order?")
-            break  # if user logs in successfully, exit the loop
-        else:
-            print("Incorrect username or password. Please try again.")
+        with open("user_details.txt", "r") as f:
+            for line in f:
+                line = line.strip().split(",")
+                if line[0] == username and line[1] == password:
+                    print(f"Welcome back {username}! What would you like to order?")
+                    break  # if user logs in successfully, exit the loop
+            else:
+                print("Incorrect username or password. Please try again.")
     elif option == '2':
         new_username = input("Enter your desired username: ")
         new_password = input("Enter your desired password: ")
         # TODO: Add age verification for new users
-        username_list.append(new_username)
-        password_list.append(new_password)
+        with open("user_details.txt", "a") as f:
+            f.write(f"{new_username},{new_password}\n")
         print("Sign up successful! Please log in with your new credentials.")
     else:
         print("Invalid input. Please enter either '1' or '2'.")
