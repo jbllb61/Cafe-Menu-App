@@ -1,9 +1,11 @@
 import os
- # create user_details.txt if it doesn't exist
+
+# create user_details.txt if it doesn't exist
 if not os.path.exists("user_details.txt"):
     with open("user_details.txt", "w") as user_file:
         pass
- # login and signup options
+
+# login and signup options
 while True:
     option = input("Enter '1' to log in, '2' to sign up: ")
     if option == '1':
@@ -31,10 +33,20 @@ while True:
                         print("This username already exists. Please choose a different username.")
                         break
                 else:
-                    # add new user to file if username is unique
-                    with open("user_details.txt", "a") as user_file:
-                        user_file.write(f"{new_username},{new_password}\n")
-                    print("Sign up successful! Please log in with your new credentials.")
-                    break  # end the loop after successful registration
+                    # password requirements
+                    if len(new_password) < 8:
+                        print("Password must be at least 8 characters.")
+                    elif not any(char.isupper() for char in new_password):
+                        print("Password must contain at least one uppercase letter.")
+                    elif not any(char.islower() for char in new_password):
+                        print("Password must contain at least one lowercase letter.")
+                    elif not any(char.isdigit() for char in new_password):
+                        print("Password must contain at least one digit.")
+                    else:
+                        # add new user to file if username is unique and password is valid
+                        with open("user_details.txt", "a") as user_file:
+                            user_file.write(f"{new_username},{new_password}\n")
+                        print("Sign up successful! Please log in with your new credentials.")
+                        break  # end the loop after successful registration
     else:
         print("Invalid input. Please enter either '1' or '2'.")
