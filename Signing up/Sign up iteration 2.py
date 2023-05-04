@@ -35,7 +35,7 @@ while True:
                 else:
                     # password requirements
                     if len(new_password) < 8:
-                        print("Password must be at least 8 characters.")
+                        print("Password must be at least 8 characters long.")
                     elif not any(char.isupper() for char in new_password):
                         print("Password must contain at least one uppercase letter.")
                     elif not any(char.islower() for char in new_password):
