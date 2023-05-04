@@ -24,7 +24,6 @@ while True:
     elif option == '2':
         while True:
             new_username = input("Enter your desired username: ")
-            new_password = input("Enter your desired password: ")
             # check if username already exists
             with open("user_details.txt", "r") as user_file:
                 for line in user_file:
@@ -34,19 +33,22 @@ while True:
                         break
                 else:
                     # password requirements
-                    if len(new_password) < 8:
-                        print("Password must be at least 8 characters long.")
-                    elif not any(char.isupper() for char in new_password):
-                        print("Password must contain at least one uppercase letter.")
-                    elif not any(char.islower() for char in new_password):
-                        print("Password must contain at least one lowercase letter.")
-                    elif not any(char.isdigit() for char in new_password):
-                        print("Password must contain at least one digit.")
-                    else:
-                        # add new user to file if username is unique and password is valid
-                        with open("user_details.txt", "a") as user_file:
-                            user_file.write(f"{new_username},{new_password}\n")
-                        print("Sign up successful! Please log in with your new credentials.")
-                        break  # end the loop after successful registration
+                    while True:
+                        new_password = input("Enter your desired password: ")
+                        if len(new_password) < 8:
+                            print("Password must be at least 8 characters long.")
+                        elif not any(char.isupper() for char in new_password):
+                            print("Password must contain at least one uppercase letter.")
+                        elif not any(char.islower() for char in new_password):
+                            print("Password must contain at least one lowercase letter.")
+                        elif not any(char.isdigit() for char in new_password):
+                            print("Password must contain at least one digit.")
+                        else:
+                            # add new user to file if username is unique and password is valid
+                            with open("user_details.txt", "a") as user_file:
+                                user_file.write(f"{new_username},{new_password}\n")
+                            print("Sign up successful! Please log in with your new credentials.")
+                            break  # end the loop after successful registration
+                    break # end the loop after validating password and adding new user to file
     else:
         print("Invalid input. Please enter either '1' or '2'.")
