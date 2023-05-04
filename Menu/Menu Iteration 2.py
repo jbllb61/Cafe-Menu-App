@@ -31,14 +31,17 @@ while True:
     item_name = list(ITEMS.keys())[choice - 1]
     order[item_name] = quantity
 
-# Display the order summary
-print('\nORDER SUMMARY')
-total = 0
+# Display the order summary as a receipt
+print('\n' + '-'*30)
+print('{:^30}'.format('ORDER SUMMARY'))
+print('-'*30)
 for item, quantity in order.items():
     if item not in ITEMS:
         continue
     price = ITEMS[item]
     subtotal = price * quantity
-    print(f'{item.title()} x{quantity} - ${subtotal:.2f}')
-    total += subtotal
-print(f'TOTAL: ${total:.2f}')
+    print('{:<20} x{:>2}  ${:>6.2f}'.format(item.title(), quantity, subtotal))
+print('-'*30)
+total = sum(ITEMS[item] * order[item] for item in order)
+print('{:<20}  ${:>6.2f}'.format('TOTAL', total))
+print('-'*30)
