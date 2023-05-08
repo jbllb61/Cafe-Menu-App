@@ -29,7 +29,10 @@ while True:
         print('Sorry, the quantity must be above 0. Please try again.')
         continue
     item_name = list(ITEMS.keys())[choice - 1]
-    order[item_name] = quantity
+    if item_name in order:
+        order[item_name] += quantity  # Update the quantity if the item is already in the order
+    else:
+        order[item_name] = quantity  # Add the item and its quantity to the order
 
 # Display the order summary as a receipt
 print('\n' + '-'*30)
