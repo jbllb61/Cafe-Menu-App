@@ -34,11 +34,11 @@ while True:
     else:
         order[item_name] = {'quantity': quantity, 'gluten-free': False, 'dairy-free': False}  # Add the item and its quantity to the order
 
-    gluten_free = input('Is this item gluten-free? (y/n): ')
+    gluten_free = input(f'Is {item_name.title()} gluten-free? (y/n): ')
     if gluten_free.lower().strip() == 'y' or gluten_free.lower().strip() == 'yes':
         order[item_name]['gluten-free'] = True
     
-    dairy_free = input('Is this item dairy-free? (y/n): ')
+    dairy_free = input(f'Is {item_name.title()} dairy-free? (y/n): ')
     if dairy_free.lower().strip() == 'y' or dairy_free.lower().strip() == 'yes':
         order[item_name]['dairy-free'] = True
 
