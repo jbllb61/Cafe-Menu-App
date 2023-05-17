@@ -174,7 +174,7 @@ def place_order():
         print('-'*57)
 
 def collect_feedback():
-    feedback_text = input("Please provide your feedback: ")
+    feedback_text = input("Please provide your feedback (Optional): ")
     # Check if feedback is not empty and has length greater than 5
     if feedback_text.strip() != "" and len(feedback_text) > 5:
         print("Thank you for your feedback!")
