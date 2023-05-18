@@ -115,10 +115,12 @@ def place_order():
             order[item_name]['dairy-free'] = True
 
     # Display the order summary as a receipt
+    print("NOTE: ITEM LIMIT OF 10")
     print('\n' + '-'*57)
     print('{:^57}'.format('ORDER SUMMARY'))
     print('-'*57)
     item_num = 1
+    total = 0
     for item, details in order.items():
         if item not in ITEMS:
             continue
@@ -137,10 +139,10 @@ def place_order():
         if dairy_free:
             item_name += ' (dairy-free)'
         subtotal = price * quantity
+        total += subtotal
         print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name, quantity, subtotal))
         item_num += 1
     print('-'*57)
-    total = sum(ITEMS[item] * order[item]['quantity'] for item in order)
     print('{:<5}{:<30}      ${:>6.2f}'.format('', 'TOTAL', total))
     print('-'*57)
 
@@ -164,6 +166,7 @@ def place_order():
         print('{:^57}'.format('UPDATED ORDER SUMMARY'))
         print('-'*57)
         item_num = 1
+        total = 0
         for item, details in order.items():
             if item not in ITEMS:
                 continue
@@ -177,10 +180,10 @@ def place_order():
             if dairy_free:
                 item_name += ' (dairy-free)'
             subtotal = price * quantity
+            total += subtotal
             print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name, quantity, subtotal))
             item_num += 1
         print('-'*57)
-        total = sum(ITEMS[item] * order[item]['quantity'] for item in order)
         print('{:<30}  ${:>6.2f}'.format('TOTAL', total))
         print('-'*57)
 

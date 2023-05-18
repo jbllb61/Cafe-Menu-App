@@ -28,6 +28,12 @@ while True:
     if quantity <= 0:
         print('Sorry, the quantity must be above 0. Please try again.')
         continue
+        
+    # Check if the quantity of the item exceeds 10, and if so, set the quantity to 10
+    if quantity > 10:
+        quantity = 10
+        print('Warning: you cannot order more than 10 of the same item. The quantity has been changed to 10.')
+    
     item_name = list(ITEMS.keys())[choice - 1]
     if item_name in order:
         order[item_name]['quantity'] += quantity  # Update the quantity if the item is already in the order
@@ -47,6 +53,7 @@ print('\n' + '-'*57)
 print('{:^57}'.format('ORDER SUMMARY'))
 print('-'*57)
 item_num = 1
+total = 0
 for item, details in order.items():
     if item not in ITEMS:
         continue
@@ -54,16 +61,21 @@ for item, details in order.items():
     quantity = details['quantity']
     gluten_free = details['gluten-free']
     dairy_free = details['dairy-free']
+    
+    # Check if the quantity of the item exceeds 10, and if so, set the quantity to 10
+    if quantity > 10:
+        quantity = 10
+    
     item_name = item.title()
     if gluten_free:
         item_name += ' (gluten-free)'
     if dairy_free:
         item_name += ' (dairy-free)'
     subtotal = price * quantity
+    total += subtotal
     print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name, quantity, subtotal))
     item_num += 1
 print('-'*57)
-total = sum(ITEMS[item] * order[item]['quantity'] for item in order)
 print('{:<5}{:<30}      ${:>6.2f}'.format('', 'TOTAL', total))
 print('-'*57)
 
@@ -87,6 +99,7 @@ while True:
     print('{:^57}'.format('UPDATED ORDER SUMMARY'))
     print('-'*57)
     item_num = 1
+    total = 0
     for item, details in order.items():
         if item not in ITEMS:
             continue
@@ -100,10 +113,10 @@ while True:
         if dairy_free:
             item_name += ' (dairy-free)'
         subtotal = price * quantity
+        total += subtotal
         print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name, quantity, subtotal))
         item_num += 1
     print('-'*57)
-    total = sum(ITEMS[item] * order[item]['quantity'] for item in order)
     print('{:<30}  ${:>6.2f}'.format('TOTAL', total))
     print('-'*57)
 
