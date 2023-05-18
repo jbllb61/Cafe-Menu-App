@@ -94,6 +94,12 @@ def place_order():
         if quantity <= 0:
             print('Sorry, the quantity must be above 0. Please try again.')
             continue
+            
+        # Check if the quantity of the item exceeds 10, and if so, set the quantity to 10
+        if quantity > 10:
+            quantity = 10
+            print('Warning: you cannot order more than 10 of the same item. The quantity has been changed to 10.')
+        
         item_name = list(ITEMS.keys())[choice - 1]
         if item_name in order:
             order[item_name]['quantity'] += quantity  # Update the quantity if the item is already in the order
@@ -120,6 +126,11 @@ def place_order():
         quantity = details['quantity']
         gluten_free = details['gluten-free']
         dairy_free = details['dairy-free']
+        
+        # Check if the quantity of the item exceeds 10, and if so, set the quantity to 10
+        if quantity > 10:
+            quantity = 10
+        
         item_name = item.title()
         if gluten_free:
             item_name += ' (gluten-free)'

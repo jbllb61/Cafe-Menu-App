@@ -28,26 +28,25 @@ while True:
     if quantity <= 0:
         print('Sorry, the quantity must be above 0. Please try again.')
         continue
+        
+    # Check if the quantity of the item exceeds 10, and if so, set the quantity to 10
+    if quantity > 10:
+        quantity = 10
+        print('Warning: you cannot order more than 10 of the same item. The quantity has been changed to 10.')
+    
     item_name = list(ITEMS.keys())[choice - 1]
+    if item_name in order:
+        order[item_name]['quantity'] += quantity  # Update the quantity if the item is already in the order
+    else:
+        order[item_name] = {'quantity': quantity, 'gluten-free': False, 'dairy-free': False}  # Add the item and its quantity to the order
+
     gluten_free = input(f'Is {item_name.title()} gluten-free? (y/n): ')
     if gluten_free.lower().strip() == 'y' or gluten_free.lower().strip() == 'yes':
-        gluten_free = True
-    else:
-        gluten_free = False
+        order[item_name]['gluten-free'] = True
+    
     dairy_free = input(f'Is {item_name.title()} dairy-free? (y/n): ')
     if dairy_free.lower().strip() == 'y' or dairy_free.lower().strip() == 'yes':
-        dairy_free = True
-    else:
-        dairy_free = False
-
-    if item_name in order:
-        order[item_name]['quantity'] += quantity
-        if gluten_free:
-            order[item_name]['gluten-free'] = True
-        if dairy_free:
-            order[item_name]['dairy-free'] = True
-    else:
-        order[item_name] = {'quantity': quantity, 'gluten-free': gluten_free, 'dairy-free': dairy_free}
+        order[item_name]['dairy-free'] = True
 
 # Display the order summary as a receipt
 print('\n' + '-'*57)
@@ -61,17 +60,19 @@ for item, details in order.items():
     quantity = details['quantity']
     gluten_free = details['gluten-free']
     dairy_free = details['dairy-free']
-    subtotal = price * quantity
+    
+    # Check if the quantity of the item exceeds 10, and if so, set the quantity to 10
+    if quantity > 10:
+        quantity = 10
+    
     item_name = item.title()
     if gluten_free:
-        print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name + ' (gluten-free)', quantity, subtotal))
-        item_num += 1
+        item_name += ' (gluten-free)'
     if dairy_free:
-        print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name + ' (dairy-free)', quantity, subtotal))
-        item_num += 1
-    if not gluten_free and not dairy_free:
-        print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name, quantity, subtotal))
-        item_num += 1
+        item_name += ' (dairy-free)'
+    subtotal = price * quantity
+    print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name, quantity, subtotal))
+    item_num += 1
 print('-'*57)
 total = sum(ITEMS[item] * order[item]['quantity'] for item in order)
 print('{:<5}{:<30}      ${:>6.2f}'.format('', 'TOTAL', total))
@@ -104,17 +105,14 @@ while True:
         quantity = details['quantity']
         gluten_free = details['gluten-free']
         dairy_free = details['dairy-free']
-        subtotal = price * quantity
         item_name = item.title()
         if gluten_free:
-            print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name + ' (gluten-free)', quantity, subtotal))
-            item_num += 1
+            item_name += ' (gluten-free)'
         if dairy_free:
-            print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name + ' (dairy-free)', quantity, subtotal))
-            item_num += 1
-        if not gluten_free and not dairy_free:
-            print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name, quantity, subtotal))
-            item_num += 1
+            item_name += ' (dairy-free)'
+        subtotal = price * quantity
+        print('{:<5}{:<30} x {:>2}  ${:>6.2f}'.format(item_num, item_name, quantity, subtotal))
+        item_num += 1
     print('-'*57)
     total = sum(ITEMS[item] * order[item]['quantity'] for item in order)
     print('{:<30}  ${:>6.2f}'.format('TOTAL', total))
