@@ -208,5 +208,4 @@ display_menu()
 place_order()
 feedback = collect_feedback()
 if feedback is not None:
-    # Do something with the feedback
     print(f"Received feedback: {feedback}")
